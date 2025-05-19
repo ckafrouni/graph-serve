@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "verbatimModuleSyntax": false,
+    "skipLibCheck": true,
+    "rootDirs": ["."],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@workspace/ui/*": ["./src/*"]
+    }
+  },
+  "include": [
+    ".",
+    "../../apps/web/src/routes/studio/-components/team-switcher.tsx",
+    "../../apps/web/src/routes/studio/-components/nav-main.tsx",
+    "../../apps/web/src/routes/studio/-components/nav-projects.tsx",
+    "../../apps/web/src/routes/studio/-components/nav-user.tsx"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

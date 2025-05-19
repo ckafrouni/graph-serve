@@ -1,0 +1,30 @@
+{
+  "name": "workspace",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "start": "turbo start",
+    "clean": "turbo clean && rm -rf .turbo node_modules",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css,scss,yml,yaml,html}\"",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F @workspace/web dev",
+    "dev:server": "turbo -F @workspace/server dev",
+    "db:push": "turbo --ui=tui -F @workspace/db db:push",
+    "db:studio": "turbo --ui=tui -F @workspace/db db:studio",
+    "db:generate": "turbo --ui=tui -F @workspace/db db:generate",
+    "db:migrate": "turbo --ui=tui -F @workspace/db db:migrate"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "turbo": "^2.5.3",
+    "vite": "^6.3.5"
+  },
+  "packageManager": "pnpm@10.10.0"
+}

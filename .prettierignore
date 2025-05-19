@@ -1,0 +1,14 @@
+node_modules
+.turbo
+dist
+build
+coverage
+*.lock
+__pycache__
+.venv
+.next
+.env
+pnpm-lock.yaml
+
+# specific files
+routeTree.gen.ts

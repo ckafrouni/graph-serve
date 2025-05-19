@@ -1,0 +1,38 @@
+{
+  "name": "@workspace/db",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo node_modules",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.1",
+    "@hono/trpc-server": "^0.3.4",
+    "@trpc/client": "catalog:trpc",
+    "@trpc/server": "catalog:trpc",
+    "better-auth": "catalog:data",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "catalog:data",
+    "hono": "^4.7.9",
+    "pg": "catalog:data",
+    "zod": "catalog:data"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:node",
+    "@types/pg": "catalog:data",
+    "drizzle-kit": "^0.30.6",
+    "tsc-alias": "catalog:node",
+    "tsx": "catalog:node",
+    "typescript": "catalog:node"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema/*": "./src/schema/*.ts"
+  }
+}

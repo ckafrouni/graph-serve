@@ -1,0 +1,25 @@
+{
+  "name": "@workspace/dal",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo node_modules"
+  },
+  "dependencies": {
+    "@workspace/db": "workspace:*",
+    "drizzle-orm": "catalog:data"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:node",
+    "tsc-alias": "catalog:node",
+    "tsx": "catalog:node",
+    "typescript": "catalog:node"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@workspace/workflows",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo node_modules"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.56",
+    "@langchain/langgraph": "^0.2.72",
+    "@langchain/openai": "^0.5.10",
+    "@langchain/tavily": "^0.1.1",
+    "@t3-oss/env-core": "^0.13.4",
+    "chromadb": "^2.4.4",
+    "langchain": "^0.3.26",
+    "zod": "catalog:data"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:node",
+    "hono": "^4.7.9",
+    "tsc-alias": "catalog:node",
+    "tsx": "catalog:node",
+    "typescript": "catalog:node"
+  },
+  "exports": {
+    ".": "./src/workflows/index.ts",
+    "./hono-adaptors/langgraph/*": "./src/lib/hono-adaptors/langgraph/*.ts"
+  }
+}

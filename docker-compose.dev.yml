@@ -1,0 +1,50 @@
+services:
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - chroma_data:/chroma
+    networks:
+      - net
+
+  s3:
+    container_name: localstack-s3
+    image: localstack/localstack:s3-latest
+    restart: unless-stopped
+    ports:
+      - 4566:4566
+    environment:
+      - SERVICES=s3
+    volumes:
+      - localstack_data:/var/lib/localstack
+    networks:
+      - net
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - net
+
+volumes:
+  chroma_data:
+    driver: local
+  localstack_data:
+    driver: local
+  postgres_data:
+    driver: local
+
+networks:
+  net:
+    driver: bridge
