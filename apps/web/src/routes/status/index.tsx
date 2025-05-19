@@ -7,29 +7,9 @@ export const Route = createFileRoute('/status/')({
 	component: RouteComponent,
 });
 
-const TITLE_TEXT = `
- ██████╗ ███████╗████████╗████████╗███████╗██████╗
- ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
- ██████╔╝█████╗     ██║      ██║   █████╗  ██████╔╝
- ██╔══██╗██╔══╝     ██║      ██║   ██╔══╝  ██╔══██╗
- ██████╔╝███████╗   ██║      ██║   ███████╗██║  ██║
- ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
-
- ████████╗    ███████╗████████╗ █████╗  ██████╗██╗  ██╗
- ╚══██╔══╝    ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝
-    ██║       ███████╗   ██║   ███████║██║     █████╔╝
-    ██║       ╚════██║   ██║   ██╔══██║██║     ██╔═██╗
-    ██║       ███████║   ██║   ██║  ██║╚██████╗██║  ██╗
-    ╚═╝       ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
- `;
-
 function RouteComponent() {
 	const { data: healthCheckData, isLoading: healthCheckIsLoading } = useQuery(
 		trpc.healthCheck.queryOptions()
-	);
-
-	const { data: pythonTestData, isLoading: pythonTestIsLoading } = useQuery(
-		trpc.pythonTest.queryOptions()
 	);
 
 	return (
@@ -47,10 +27,6 @@ function RouteComponent() {
 					</Button>
 				</div>
 
-				<section className="rounded-lg border p-4 text-center">
-					<pre className="overflow-x-auto font-mono text-sm">{TITLE_TEXT}</pre>
-				</section>
-
 				<section className="rounded-lg border p-4">
 					<h2 className="mb-2 font-medium">API Status</h2>
 					<div className="flex items-center gap-2">
@@ -63,16 +39,6 @@ function RouteComponent() {
 								: healthCheckData
 									? 'Connected'
 									: 'Disconnected'}
-						</span>
-					</div>
-				</section>
-
-				<section className="rounded-lg border p-4">
-					<h2 className="mb-2 font-medium">Python Test</h2>
-					<div className="flex items-center gap-2">
-						<div className="h-2 w-2 rounded-full bg-green-500" />
-						<span className="text-muted-foreground text-sm">
-							{pythonTestIsLoading ? 'Checking...' : pythonTestData ? 'Connected' : 'Disconnected'}
 						</span>
 					</div>
 				</section>
