@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const env = createEnv({
 	server: {
 		CORS_ORIGIN: z.string().min(1),
+		PORT: z.number().default(8080),
 
 		BETTER_AUTH_SECRET: z.string().min(1),
 		BETTER_AUTH_URL: z.string().url(),
@@ -11,9 +12,6 @@ export const env = createEnv({
 		GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
 
 		DATABASE_URL: z.string().url(),
-
-		OPENAI_API_KEY: z.string().min(1),
-		TAVILY_API_KEY: z.string().min(1),
 	},
 	runtimeEnv: process.env,
 });

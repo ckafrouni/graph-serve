@@ -6,7 +6,6 @@ import { stream } from 'hono/streaming';
 
 interface WorkflowInput {
 	messages: BaseMessage[];
-	userId?: string;
 }
 
 export type StreamableWorkflow = CompiledStateGraph<WorkflowInput, Partial<WorkflowInput>, string>;

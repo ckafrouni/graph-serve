@@ -9,7 +9,6 @@
 		"clean": "rm -rf dist .turbo node_modules"
 	},
 	"dependencies": {
-		"@workspace/workflows": "workspace:*",
 		"@langchain/core": "^0.3.56",
 		"@langchain/langgraph": "^0.2.72",
 		"@langchain/openai": "^0.5.10",

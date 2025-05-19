@@ -4,12 +4,10 @@ import type { Turn, Document } from '../lib/ai-message';
 import { isAIMessageChunk } from '../lib/ai-message';
 import { apiFetch } from '../lib/fetch';
 
-export type Workflow = 'vector-rag' | 'web-search-rag';
-
 export function useChatStream() {
 	const [turns, setTurns] = useState<Turn[]>([]);
 
-	const sendMessage = useCallback(async (prompt: string, workflow: Workflow) => {
+	const sendMessage = useCallback(async (prompt: string, workflow: string) => {
 		setTurns((prevTurns) => [
 			...prevTurns,
 			{

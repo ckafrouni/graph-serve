@@ -8,10 +8,9 @@ import { logger } from 'hono/logger';
 import { serve } from '@hono/node-server';
 
 import { appRouter } from './routers/trpc';
-import { apiRouter } from './routers/api';
-import type { HonoEnv } from './hono.types';
+import { env } from './env';
 
-const app = new Hono<HonoEnv>();
+const app = new Hono();
 
 app.use(logger());
 app.use(
@@ -36,24 +35,6 @@ app.use(
 	})
 );
 
-app.use('/api/*', async (c, next) => {
-	const session = await auth.api.getSession({
-		headers: c.req.raw.headers,
-	});
-
-	if (!session) {
-		c.set('session', null);
-		c.set('user', null);
-		return next();
-	}
-
-	c.set('session', session.session);
-	c.set('user', session.user);
-	await next();
-});
-
-app.route('/api', apiRouter);
-
 app.get('/', (c) => {
 	return c.text('OK');
 });
@@ -61,7 +42,7 @@ app.get('/', (c) => {
 serve(
 	{
 		fetch: app.fetch,
-		port: 8080,
+		port: env.PORT,
 	},
 	(info) => {
 		console.log(`Server is running on http://localhost:${info.port}`);
