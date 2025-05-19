@@ -12,84 +12,84 @@ import { GlobeIcon } from 'lucide-react';
 const workflowOptions = [{ name: 'web-search-rag', label: 'Web Search', icon: GlobeIcon }];
 
 export const Route = createFileRoute('/studio/playground/')({
-  component: RouteComponent,
+	component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { turns, sendMessage } = useChatStream();
-  const [input, setInput] = useState('');
-  const turnsContainerRef = useRef<HTMLDivElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
-  const [selectedWorkflow, setSelectedWorkflow] = useState('web-search-rag');
+	const { turns, sendMessage } = useChatStream();
+	const [input, setInput] = useState('');
+	const turnsContainerRef = useRef<HTMLDivElement>(null);
+	const bottomRef = useRef<HTMLDivElement>(null);
+	const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
+	const [selectedWorkflow, setSelectedWorkflow] = useState('web-search-rag');
 
-  useEffect(() => {
-    if (isAutoScrollEnabled) {
-      bottomRef.current?.scrollIntoView();
-    }
-  }, [turns, isAutoScrollEnabled]);
+	useEffect(() => {
+		if (isAutoScrollEnabled) {
+			bottomRef.current?.scrollIntoView();
+		}
+	}, [turns, isAutoScrollEnabled]);
 
-  useEffect(() => {
-    const container = turnsContainerRef.current;
-    if (!container) return;
+	useEffect(() => {
+		const container = turnsContainerRef.current;
+		if (!container) return;
 
-    const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = container;
-      const isAtBottom = scrollHeight - scrollTop - clientHeight < 5;
+		const handleScroll = () => {
+			const { scrollTop, scrollHeight, clientHeight } = container;
+			const isAtBottom = scrollHeight - scrollTop - clientHeight < 5;
 
-      if (!isAtBottom && isAutoScrollEnabled) {
-        setIsAutoScrollEnabled(false);
-      } else if (isAtBottom && !isAutoScrollEnabled) {
-        setIsAutoScrollEnabled(true);
-      }
-    };
+			if (!isAtBottom && isAutoScrollEnabled) {
+				setIsAutoScrollEnabled(false);
+			} else if (isAtBottom && !isAutoScrollEnabled) {
+				setIsAutoScrollEnabled(true);
+			}
+		};
 
-    container.addEventListener('scroll', handleScroll, { passive: true });
+		container.addEventListener('scroll', handleScroll, { passive: true });
 
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-    };
-  }, [isAutoScrollEnabled]);
+		return () => {
+			container.removeEventListener('scroll', handleScroll);
+		};
+	}, [isAutoScrollEnabled]);
 
-  const handleScrollDownClick = () => {
-    setIsAutoScrollEnabled(true);
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+	const handleScrollDownClick = () => {
+		setIsAutoScrollEnabled(true);
+		bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
 
-  return (
-    <div className="flex h-full flex-col">
-      <div
-        id="turns-container"
-        ref={turnsContainerRef}
-        className="container mx-auto flex-1 overflow-y-auto px-4"
-      >
-        {turns.map((turn, index) => (
-          <div key={index} className={`mb-16`}>
-            <UserMessage content={turn.user.content as string} />
-            <WorkflowSteps steps={turn.steps} />
-            <MarkdownRenderer className="text-sm" content={turn.ai?.content as string} />
-            <SourcesBlocks sourceDocuments={turn.sourceDocuments ?? []} />
-          </div>
-        ))}
-        <div ref={bottomRef} />
-      </div>
+	return (
+		<div className="flex h-full flex-col">
+			<div
+				id="turns-container"
+				ref={turnsContainerRef}
+				className="container mx-auto flex-1 overflow-y-auto px-4"
+			>
+				{turns.map((turn, index) => (
+					<div key={index} className={`mb-16`}>
+						<UserMessage content={turn.user.content as string} />
+						<WorkflowSteps steps={turn.steps} />
+						<MarkdownRenderer className="text-sm" content={turn.ai?.content as string} />
+						<SourcesBlocks sourceDocuments={turn.sourceDocuments ?? []} />
+					</div>
+				))}
+				<div ref={bottomRef} />
+			</div>
 
-      <ScrollButton
-        isAutoScrollEnabled={isAutoScrollEnabled}
-        handleScrollDownClick={handleScrollDownClick}
-      />
+			<ScrollButton
+				isAutoScrollEnabled={isAutoScrollEnabled}
+				handleScrollDownClick={handleScrollDownClick}
+			/>
 
-      {/* Sticky container for the user input */}
-      <div className="bg-background sticky bottom-0 w-full px-4 py-4">
-        <UserInput
-          input={input}
-          setInput={setInput}
-          sendMessage={sendMessage}
-          selectedWorkflow={selectedWorkflow}
-          setSelectedWorkflow={setSelectedWorkflow}
-          workflowOptions={workflowOptions}
-        />
-      </div>
-    </div>
-  );
+			{/* Sticky container for the user input */}
+			<div className="bg-background sticky bottom-0 w-full px-4 py-4">
+				<UserInput
+					input={input}
+					setInput={setInput}
+					sendMessage={sendMessage}
+					selectedWorkflow={selectedWorkflow}
+					setSelectedWorkflow={setSelectedWorkflow}
+					workflowOptions={workflowOptions}
+				/>
+			</div>
+		</div>
+	);
 }

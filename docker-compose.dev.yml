@@ -1,7 +1,6 @@
 services:
   chromadb:
     image: chromadb/chroma:latest
-    container_name: chromadb
     restart: unless-stopped
     ports:
       - 8000:8000
@@ -9,9 +8,13 @@ services:
       - chroma_data:/chroma
     networks:
       - net
+    healthcheck:
+      test: ['CMD', '/bin/bash', '-c', 'cat < /dev/null > /dev/tcp/localhost/8000']
+      interval: 1s
+      timeout: 1s
+      retries: 12
 
   s3:
-    container_name: localstack-s3
     image: localstack/localstack:s3-latest
     restart: unless-stopped
     ports:
@@ -22,6 +25,11 @@ services:
       - localstack_data:/var/lib/localstack
     networks:
       - net
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4566/_localstack/health']
+      interval: 1s
+      timeout: 1s
+      retries: 12
 
   db:
     image: postgres:latest

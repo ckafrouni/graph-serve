@@ -5,13 +5,13 @@ import path from 'node:path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  server: {
-    port: 3000,
-  },
-  plugins: [tailwindcss(), TanStackRouterVite({}), react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
+	server: {
+		port: 3000,
+	},
+	plugins: [tailwindcss(), TanStackRouterVite({}), react()],
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, './src'),
+		},
+	},
 });

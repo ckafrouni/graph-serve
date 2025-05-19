@@ -4,12 +4,12 @@ import { db } from '@workspace/db';
 import * as schema from '@workspace/db/schema/auth';
 
 export const auth = betterAuth({
-  database: drizzleAdapter(db, {
-    provider: 'pg',
-    schema: schema,
-  }),
-  trustedOrigins: [process.env.CORS_ORIGIN || ''],
-  emailAndPassword: {
-    enabled: true,
-  },
+	database: drizzleAdapter(db, {
+		provider: 'pg',
+		schema: schema,
+	}),
+	trustedOrigins: [process.env.CORS_ORIGIN || ''],
+	emailAndPassword: {
+		enabled: true,
+	},
 });

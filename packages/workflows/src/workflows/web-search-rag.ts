@@ -9,74 +9,74 @@ import type { TavilySearchResponse } from '@langchain/tavily';
 import { env } from '../env';
 
 export interface Document extends DocumentInterface {
-  metadata: {
-    id: string;
-    distance: number;
-    source: string;
-  };
+	metadata: {
+		id: string;
+		distance: number;
+		source: string;
+	};
 }
 
 export type Routes = 'generator' | 'web_searcher';
 
 const extractContextFromTavilyResponse = (response: TavilySearchResponse): string => {
-  if (response.results.length === 0) {
-    return 'No web search results found.';
-  }
-  return response.results
-    .map(
-      (result, index) =>
-        `[Index: ${String(index + 1)} | URL: ${result.url} | Title: ${result.title}]
+	if (response.results.length === 0) {
+		return 'No web search results found.';
+	}
+	return response.results
+		.map(
+			(result, index) =>
+				`[Index: ${String(index + 1)} | URL: ${result.url} | Title: ${result.title}]
 ${result.content}`
-    )
-    .join('\n\n---\n\n');
+		)
+		.join('\n\n---\n\n');
 };
 
 export const GraphAnnotation = Annotation.Root({
-  messages: Annotation<BaseMessage[]>,
-  documents: Annotation<Document[]>,
-  web_context: Annotation<TavilySearchResponse | null>,
-  routing: Annotation<Routes>,
-  final_node: Annotation<boolean>,
-  userId: Annotation<string>,
+	messages: Annotation<BaseMessage[]>,
+	documents: Annotation<Document[]>,
+	web_context: Annotation<TavilySearchResponse | null>,
+	routing: Annotation<Routes>,
+	final_node: Annotation<boolean>,
+	userId: Annotation<string>,
 });
 
 export type GraphAnnotationType = typeof GraphAnnotation.State;
 
 // MARK: - LLM Config
 const model = new ChatOpenAI({
-  apiKey: env.OPENAI_API_KEY,
-  model: env.OPENAI_CHAT_MODEL,
+	apiKey: env.OPENAI_API_KEY,
+	model: env.OPENAI_CHAT_MODEL,
 });
 
 // MARK: - Web Search Node
 const web_searcher = async (state: GraphAnnotationType) => {
-  const last_message = state.messages[state.messages.length - 1];
-  const question = last_message.content as string;
+	const last_message = state.messages[state.messages.length - 1];
+	const question = last_message.content as string;
 
-  const tool = new TavilySearch({
-    maxResults: 3,
-    tavilyApiKey: env.TAVILY_API_KEY,
-  });
-  const web_context = (await tool.invoke({
-    query: question,
-  })) as TavilySearchResponse | null;
+	const tool = new TavilySearch({
+		maxResults: 3,
+		tavilyApiKey: env.TAVILY_API_KEY,
+	});
+	const web_context = (await tool.invoke({
+		query: question,
+	})) as TavilySearchResponse | null;
 
-  return !web_context
-    ? { web_context: 'No relevant information found after web search.' }
-    : { web_context };
+	return !web_context
+		? { web_context: 'No relevant information found after web search.' }
+		: { web_context };
 };
 
 // MARK: - Generate Response with Web Context
 const web_generator = async (state: GraphAnnotationType) => {
-  const last_message = state.messages[state.messages.length - 1];
-  const question = last_message.content as string;
+	const last_message = state.messages[state.messages.length - 1];
+	const question = last_message.content as string;
 
-  const web_context_content = state.web_context
-    ? extractContextFromTavilyResponse(state.web_context)
-    : '';
+	const web_context_content = state.web_context
+		? extractContextFromTavilyResponse(state.web_context)
+		: '';
 
-  const prompt = await PromptTemplate.fromTemplate(
-    `
+	const prompt = await PromptTemplate.fromTemplate(
+		`
     You are a helpful assistant. You couldn't find relevant information in the local document knowledge base, but you have access to the web.
     Web Search Context:
     {web_context}
@@ -99,20 +99,20 @@ const web_generator = async (state: GraphAnnotationType) => {
     
     Answer:
     `
-  ).format({ question, web_context: web_context_content });
+	).format({ question, web_context: web_context_content });
 
-  const response = await model.invoke([...state.messages, new SystemMessage(prompt)]);
+	const response = await model.invoke([...state.messages, new SystemMessage(prompt)]);
 
-  return { messages: response, final_node: true };
+	return { messages: response, final_node: true };
 };
 
 // MARK: - Graph
 
 export const webSearchRagGraph = new StateGraph(GraphAnnotation)
-  .addNode('web_searcher', web_searcher)
-  .addNode('web_generator', web_generator)
-  .addEdge(START, 'web_searcher')
-  .addEdge('web_searcher', 'web_generator')
-  .addEdge('web_generator', END);
+	.addNode('web_searcher', web_searcher)
+	.addNode('web_generator', web_generator)
+	.addEdge(START, 'web_searcher')
+	.addEdge('web_searcher', 'web_generator')
+	.addEdge('web_generator', END);
 
 export const webSearchRagWorkflow = webSearchRagGraph.compile();
