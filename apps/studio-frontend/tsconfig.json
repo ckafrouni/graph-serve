@@ -18,7 +18,7 @@
 	},
 	"references": [
 		{
-			"path": "../server"
+			"path": "../management-server"
 		}
 	],
 	"include": ["../../packages/ui/src/*", "src/*"]
