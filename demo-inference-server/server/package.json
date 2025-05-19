@@ -12,7 +12,6 @@
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.14.1",
-		"@langchain/community": "^0.3.43",
 		"@langchain/core": "^0.3.56",
 		"@langchain/langgraph": "^0.2.72",
 		"@t3-oss/env-core": "^0.13.4",
