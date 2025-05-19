@@ -1,5 +1,5 @@
 {
-	"name": "@workspace/workflows",
+	"name": "@demo-inference-server/your-workflows",
 	"version": "0.1.0",
 	"type": "module",
 	"private": true,
@@ -26,7 +26,6 @@
 		"typescript": "catalog:node"
 	},
 	"exports": {
-		".": "./src/workflows/index.ts",
-		"./hono-adaptors/langgraph/*": "./src/lib/hono-adaptors/langgraph/*.ts"
+		".": "./src/workflows/index.ts"
 	}
 }

@@ -1,5 +1,5 @@
 {
-	"name": "@workspace/inference-server",
+	"name": "@demo-inference-server/server",
 	"main": "src/index.ts",
 	"type": "module",
 	"scripts": {
@@ -12,13 +12,12 @@
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.14.1",
-		"@hono/trpc-server": "^0.3.4",
 		"@langchain/community": "^0.3.43",
 		"@langchain/core": "^0.3.56",
 		"@langchain/langgraph": "^0.2.72",
 		"@langchain/openai": "^0.5.10",
 		"@t3-oss/env-core": "^0.13.4",
-		"@workspace/workflows": "workspace:*",
+		"@demo-inference-server/your-workflows": "workspace:*",
 		"dotenv": "^16.5.0",
 		"hono": "^4.7.9",
 		"langchain": "^0.3.26",

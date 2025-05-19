@@ -1,6 +1,7 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+  - 'demo-inference-server/*'
 
 catalogs:
   node:

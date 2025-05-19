@@ -4,7 +4,7 @@ import {
 	type StreamableWorkflow,
 	HumanMessage,
 } from '@/lib/langgraph-hono-adaptors';
-import { workflowSelector } from '@workspace/workflows';
+import { workflowSelector } from '@demo-inference-server/your-workflows';
 
 const router = new Hono();
 
