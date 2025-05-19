@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { useState, useEffect, useRef } from 'react';
 import { useChatStream } from '@workspace/workflows-ui/hooks/useChatStream';
 import { WorkflowSteps } from './-components/workflow-steps';
@@ -8,10 +8,20 @@ import { UserMessage } from './-components/user-message';
 import { UserInput } from './-components/user-input';
 import { ScrollButton } from './-components/scroll-button';
 import { GlobeIcon } from 'lucide-react';
+import { authClient } from '@/lib/auth-client';
 
 const workflowOptions = [{ name: 'web-search-rag', label: 'Web Search', icon: GlobeIcon }];
 
 export const Route = createFileRoute('/studio/playground/')({
+	beforeLoad: async ({ context }) => {
+		console.log('beforeLoad');
+		console.log(context);
+		const { data, error } = await authClient.getSession();
+		console.log(data, error);
+		if (!data) {
+			throw redirect({ to: '/login', search: { redirect: location.pathname } });
+		}
+	},
 	component: RouteComponent,
 });
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@workspace/ui/components/ui/avatar';
@@ -40,7 +38,7 @@ export function NavUserContent({
 					<DropdownMenuTrigger asChild>
 						<SidebarMenuButton
 							size="lg"
-							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
 						>
 							<Avatar className="h-8 w-8 rounded-lg">
 								<AvatarImage src={user.avatar} alt={user.name} />
@@ -94,7 +92,14 @@ export function NavUserContent({
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
+						<DropdownMenuItem
+							className="cursor-pointer"
+							variant="destructive"
+							onClick={() => {
+								authClient.signOut();
+								window.location.reload();
+							}}
+						>
 							<LogOut />
 							Log out
 						</DropdownMenuItem>

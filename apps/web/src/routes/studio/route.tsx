@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, useRouterState } from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect, useRouterState } from '@tanstack/react-router';
 import { SidebarProvider, SidebarTrigger } from '@workspace/ui/components/ui/sidebar';
 import { AppSidebar } from './-components/app-sidebar';
 import { SidebarInset } from '@workspace/ui/components/ui/sidebar';
@@ -13,9 +13,17 @@ import { Breadcrumb } from '@workspace/ui/components/ui/breadcrumb';
 import { Separator } from '@workspace/ui/components/ui/separator';
 import { NotFound } from '@/components/not-found';
 import React from 'react';
+import { authClient } from '@/lib/auth-client';
 
 export const Route = createFileRoute('/studio')({
 	component: RouteComponent,
+	beforeLoad: async ({ context }) => {
+		const { data, error } = await authClient.getSession();
+		console.log(data, error);
+		if (!data) {
+			throw redirect({ to: '/login', search: { redirect: location.pathname } });
+		}
+	},
 	notFoundComponent: () => (
 		<NotFound link={{ label: 'Go to dashboard', to: '/studio/dashboard' }} />
 	),

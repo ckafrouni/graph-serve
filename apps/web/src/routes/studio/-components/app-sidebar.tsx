@@ -16,7 +16,6 @@ import {
 import { NavMain } from './nav-main';
 import { NavPinnedTenders } from './nav-pinned-tenders';
 import { NavUser } from './nav-user';
-import { TeamSwitcher } from './team-switcher';
 import {
 	Sidebar,
 	SidebarContent,
@@ -28,30 +27,12 @@ import {
 import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@workspace/ui/components/ui/button';
 
-// This is sample data.
 const data = {
 	user: {
 		name: 'shadcn',
 		email: 'm@example.com',
 		avatar: '/avatars/shadcn.jpg',
 	},
-	teams: [
-		{
-			name: 'Acme Inc',
-			logo: GalleryVerticalEnd,
-			plan: 'Enterprise',
-		},
-		{
-			name: 'Acme Corp.',
-			logo: AudioWaveform,
-			plan: 'Startup',
-		},
-		{
-			name: 'Evil Corp.',
-			logo: Command,
-			plan: 'Free',
-		},
-	],
 	navMain: [
 		{
 			title: 'Dashboard',
@@ -152,7 +133,6 @@ export function AppSidebar({
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
 				<NavUser fallbackUser={data.user} />
-				{/* <TeamSwitcher teams={data.teams} /> */}
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={data.navMain} currentPath={currentPath} />
