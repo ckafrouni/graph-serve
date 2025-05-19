@@ -1,5 +1,5 @@
 {
-	"name": "@demo-inference-server/server",
+	"name": "@workspace/server",
 	"main": "src/index.ts",
 	"type": "module",
 	"scripts": {
@@ -15,7 +15,7 @@
 		"@langchain/core": "^0.3.56",
 		"@langchain/langgraph": "^0.2.72",
 		"@t3-oss/env-core": "^0.13.4",
-		"@demo-inference-server/your-workflows": "workspace:*",
+		"@workspace/workflows": "workspace:*",
 		"dotenv": "^16.5.0",
 		"hono": "^4.7.9",
 		"langchain": "^0.3.26",

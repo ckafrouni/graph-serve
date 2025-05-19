@@ -232,89 +232,6 @@ importers:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.4)(yaml@2.8.0)
 
-  demo-inference-server/server:
-    dependencies:
-      '@demo-inference-server/your-workflows':
-        specifier: workspace:*
-        version: link:../your-workflows
-      '@hono/node-server':
-        specifier: ^1.14.1
-        version: 1.14.1(hono@4.7.9)
-      '@langchain/core':
-        specifier: ^0.3.56
-        version: 0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4))
-      '@langchain/langgraph':
-        specifier: ^0.2.72
-        version: 0.2.72(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))(react@19.1.0)(zod-to-json-schema@3.24.5(zod@3.24.4))
-      '@t3-oss/env-core':
-        specifier: ^0.13.4
-        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.24.4)
-      dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
-      hono:
-        specifier: ^4.7.9
-        version: 4.7.9
-      langchain:
-        specifier: ^0.3.26
-        version: 0.3.26(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.98.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2)
-      zod:
-        specifier: catalog:data
-        version: 3.24.4
-    devDependencies:
-      '@types/node':
-        specifier: catalog:node
-        version: 22.15.18
-      tsc-alias:
-        specifier: catalog:node
-        version: 1.8.16
-      tsx:
-        specifier: catalog:node
-        version: 4.19.4
-      typescript:
-        specifier: catalog:node
-        version: 5.8.3
-
-  demo-inference-server/your-workflows:
-    dependencies:
-      '@langchain/core':
-        specifier: ^0.3.56
-        version: 0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4))
-      '@langchain/langgraph':
-        specifier: ^0.2.72
-        version: 0.2.72(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))(react@19.1.0)(zod-to-json-schema@3.24.5(zod@3.24.4))
-      '@langchain/openai':
-        specifier: ^0.5.10
-        version: 0.5.10(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2)
-      '@langchain/tavily':
-        specifier: ^0.1.1
-        version: 0.1.1(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))
-      '@t3-oss/env-core':
-        specifier: ^0.13.4
-        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.24.4)
-      langchain:
-        specifier: ^0.3.26
-        version: 0.3.26(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.98.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2)
-      zod:
-        specifier: catalog:data
-        version: 3.24.4
-    devDependencies:
-      '@types/node':
-        specifier: catalog:node
-        version: 22.15.18
-      hono:
-        specifier: ^4.7.9
-        version: 4.7.9
-      tsc-alias:
-        specifier: catalog:node
-        version: 1.8.16
-      tsx:
-        specifier: catalog:node
-        version: 4.19.4
-      typescript:
-        specifier: catalog:node
-        version: 5.8.3
-
   packages/dal:
     dependencies:
       '@workspace/db':
@@ -1362,12 +1279,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': '>=0.3.48 <0.4.0'
-
-  '@langchain/tavily@0.1.1':
-    resolution: {integrity: sha512-nvg/gJkt9F8xOlMDoP8YR22BdUz9IjsHFYp3LjCsjFq2SMlKicIWDP9M8Z4Pv0Zd9zHYk4v9Ljr3TZfCj39LRA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@langchain/core': '>=0.3.39 <0.4.0'
 
   '@langchain/textsplitters@0.1.0':
     resolution: {integrity: sha512-djI4uw9rlkAb5iMhtLED+xJebDdAG935AdP4eRTB02R7OB/act55Bj9wsskhZsvuyQRpO4O1wQOp85s6T6GWmw==}
@@ -6283,11 +6194,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - ws
-
-  '@langchain/tavily@0.1.1(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))':
-    dependencies:
-      '@langchain/core': 0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4))
-      zod: 3.24.4
 
   '@langchain/textsplitters@0.1.0(@langchain/core@0.3.56(openai@4.98.0(ws@8.18.2)(zod@3.24.4)))':
     dependencies:
