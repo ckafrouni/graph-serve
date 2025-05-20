@@ -26,13 +26,12 @@ Thumbs.db
 # apps/*/dist # Example: if you don't want local app builds to be part of context
 # packages/*/dist # Example: if you don't want local package builds to be part of context
 
-# Ignore environment files that are not .env or .env.example, which are explicitly copied
-# (Adjust if you have other .env.* files you *do* want to copy)
+# Ignore all .env files from the build context.
+# Runtime configuration should be handled by Docker Compose injecting variables from the root .env file.
+.env
 .env.*
-!/.env
-!/.env.example
-!/**/.env
-!/**/.env.example
+**/.env
+**/.env.*
 
 # Ignore other common files/folders you might not want
 coverage/

@@ -16,8 +16,8 @@ COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY turbo.json ./
 # COPY .npmrc ./.npmrc # Removed as .npmrc might not exist at the root
-COPY .env ./.env
-COPY .env.example ./.env.example
+# COPY .env ./.env # Removed for security and runtime config best practices
+# COPY .env.example ./.env.example # Removed, example files not needed in image
 
 # Copy app-specific package.json
 COPY apps/management-server/package.json ./apps/management-server/package.json
@@ -60,12 +60,12 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 # COPY .npmrc ./.npmrc # Removed as .npmrc might not exist at the root
-COPY .env ./.env
-COPY .env.example ./.env.example
+# COPY .env ./.env # Removed for security and runtime config best practices
+# COPY .env.example ./.env.example # Removed, example files not needed in image
 
 
 ENV NODE_ENV=production
-
+# Expose the port the app runs on
+# Replace 3001 with your actual port if different (management server port in compose is 8080)
 EXPOSE 8080
-
 CMD ["pnpm", "--filter=@workspace/management-server", "start"] 
