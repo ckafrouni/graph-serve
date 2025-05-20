@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: template-inference-deployment
+  namespace: template-inference-ns
+  labels:
+    app: template-inference-server
+spec:
+  replicas: 2 # Start with 2 replicas, can be adjusted
+  selector:
+    matchLabels:
+      app: template-inference-server
+  template:
+    metadata:
+      labels:
+        app: template-inference-server
+    spec:
+      containers:
+        - name: template-inference-server
+          image: your-docker-registry/template-inference-server:latest # Placeholder - replace with your actual image
+          ports:
+            - containerPort: 8080 # Assuming your app listens on port 8080
+          # Add resource requests and limits, readiness/liveness probes, env vars etc. here
+          # resources:
+          #   limits:
+          #     memory: "512Mi"
+          #     cpu: "500m"
+          #   requests:
+          #     memory: "256Mi"
+          #     cpu: "250m"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz # Replace with your actual health check endpoint
+          #     port: 8080
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20
+          # readinessProbe:
+          #   httpGet:
+          #     path: /readyz # Replace with your actual readiness endpoint
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10

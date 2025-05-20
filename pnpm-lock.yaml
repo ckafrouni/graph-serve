@@ -83,58 +83,6 @@ importers:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.4)(yaml@2.8.0)
 
-  apps/management-server:
-    dependencies:
-      '@hono/node-server':
-        specifier: ^1.14.1
-        version: 1.14.1(hono@4.7.9)
-      '@hono/trpc-server':
-        specifier: ^0.3.4
-        version: 0.3.4(@trpc/server@11.1.2(typescript@5.8.3))(hono@4.7.9)
-      '@t3-oss/env-core':
-        specifier: ^0.13.4
-        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.24.4)
-      '@trpc/client':
-        specifier: catalog:trpc
-        version: 11.1.2(@trpc/server@11.1.2(typescript@5.8.3))(typescript@5.8.3)
-      '@trpc/server':
-        specifier: catalog:trpc
-        version: 11.1.2(typescript@5.8.3)
-      '@workspace/dal':
-        specifier: workspace:*
-        version: link:../../packages/dal
-      '@workspace/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      better-auth:
-        specifier: catalog:data
-        version: 1.2.7
-      dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
-      drizzle-orm:
-        specifier: catalog:data
-        version: 0.38.4(@libsql/client@0.15.6)(@opentelemetry/api@1.9.0)(@types/pg@8.15.1)(@types/react@19.1.4)(kysely@0.27.6)(pg@8.15.6)(postgres@3.4.5)(react@19.1.0)
-      hono:
-        specifier: ^4.7.9
-        version: 4.7.9
-      zod:
-        specifier: catalog:data
-        version: 3.24.4
-    devDependencies:
-      '@types/node':
-        specifier: catalog:node
-        version: 22.15.18
-      tsc-alias:
-        specifier: catalog:node
-        version: 1.8.16
-      tsx:
-        specifier: catalog:node
-        version: 4.19.4
-      typescript:
-        specifier: catalog:node
-        version: 5.8.3
-
   apps/studio-frontend:
     dependencies:
       '@hookform/resolvers':
@@ -231,6 +179,58 @@ importers:
       vite:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.4)(yaml@2.8.0)
+
+  apps/studio-server:
+    dependencies:
+      '@hono/node-server':
+        specifier: ^1.14.1
+        version: 1.14.1(hono@4.7.9)
+      '@hono/trpc-server':
+        specifier: ^0.3.4
+        version: 0.3.4(@trpc/server@11.1.2(typescript@5.8.3))(hono@4.7.9)
+      '@t3-oss/env-core':
+        specifier: ^0.13.4
+        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.24.4)
+      '@trpc/client':
+        specifier: catalog:trpc
+        version: 11.1.2(@trpc/server@11.1.2(typescript@5.8.3))(typescript@5.8.3)
+      '@trpc/server':
+        specifier: catalog:trpc
+        version: 11.1.2(typescript@5.8.3)
+      '@workspace/dal':
+        specifier: workspace:*
+        version: link:../../packages/dal
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      better-auth:
+        specifier: catalog:data
+        version: 1.2.7
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
+      drizzle-orm:
+        specifier: catalog:data
+        version: 0.38.4(@libsql/client@0.15.6)(@opentelemetry/api@1.9.0)(@types/pg@8.15.1)(@types/react@19.1.4)(kysely@0.27.6)(pg@8.15.6)(postgres@3.4.5)(react@19.1.0)
+      hono:
+        specifier: ^4.7.9
+        version: 4.7.9
+      zod:
+        specifier: catalog:data
+        version: 3.24.4
+    devDependencies:
+      '@types/node':
+        specifier: catalog:node
+        version: 22.15.18
+      tsc-alias:
+        specifier: catalog:node
+        version: 1.8.16
+      tsx:
+        specifier: catalog:node
+        version: 4.19.4
+      typescript:
+        specifier: catalog:node
+        version: 5.8.3
 
   packages/dal:
     dependencies:
