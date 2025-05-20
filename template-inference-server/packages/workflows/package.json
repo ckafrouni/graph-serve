@@ -6,6 +6,7 @@
 	"scripts": {
 		"build": "tsc && tsc-alias",
 		"check-types": "tsc --noEmit",
+		"dev": "tsc --watch --preserveWatchOutput & tsc-alias --watch",
 		"clean": "rm -rf dist .turbo node_modules"
 	},
 	"dependencies": {
