@@ -43,8 +43,6 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-RUN pnpm add -g serve
-
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=dependencies /app/apps/studio-frontend/node_modules ./apps/studio-frontend/node_modules
 
@@ -57,4 +55,4 @@ COPY pnpm-workspace.yaml ./
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "apps/studio-frontend/dist", "-l", "3000"] 
+CMD ["pnpm", "--filter=@workspace/studio-frontend", "run", "start:prod"] 

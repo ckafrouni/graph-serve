@@ -1,4 +1,4 @@
-# Dockerfile for apps/management-server
+# Dockerfile for apps/studio-server
 
 # 1. ---- Base Node ----
 FROM node:24-alpine AS base
@@ -15,9 +15,9 @@ COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY turbo.json ./
 
-COPY apps/management-server/package.json ./apps/management-server/package.json
+COPY apps/studio-server/package.json ./apps/studio-server/package.json
 
-RUN pnpm install --prod --filter @workspace/management-server...
+RUN pnpm install --prod --filter @workspace/studio-server...
 
 # 3. ---- Build ----
 FROM base AS build
@@ -27,17 +27,17 @@ COPY . ./
 
 RUN pnpm install --frozen-lockfile
 
-RUN pnpm turbo build --filter=@workspace/management-server...
+RUN pnpm turbo build --filter=@workspace/studio-server...
 
 # 4. ---- Runner ----
 FROM base AS runner
 WORKDIR /app
 
 COPY --from=dependencies /app/node_modules ./node_modules
-COPY --from=dependencies /app/apps/management-server/node_modules ./apps/management-server/node_modules
+COPY --from=dependencies /app/apps/studio-server/node_modules ./apps/studio-server/node_modules
 
-COPY --from=build /app/apps/management-server/dist ./apps/management-server/dist
-COPY --from=build /app/apps/management-server/package.json ./apps/management-server/package.json
+COPY --from=build /app/apps/studio-server/dist ./apps/studio-server/dist
+COPY --from=build /app/apps/studio-server/package.json ./apps/studio-server/package.json
 
 COPY --from=build /app/packages ./packages
 
@@ -50,4 +50,4 @@ COPY pnpm-workspace.yaml ./
 ENV NODE_ENV=production
 EXPOSE 8080
 
-CMD ["pnpm", "--filter=@workspace/management-server", "start"] 
+CMD ["pnpm", "--filter=@workspace/studio-server", "start"] 

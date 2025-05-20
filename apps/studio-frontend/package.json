@@ -8,6 +8,7 @@
 		"build": "vite build",
 		"serve": "vite preview",
 		"start": "vite",
+		"start:prod": "serve -s dist -l 3000",
 		"check-types": "tsc --noEmit",
 		"clean": "rm -rf dist .turbo node_modules"
 	},
@@ -31,6 +32,7 @@
 		"react-markdown": "^10.1.0",
 		"remark-gfm": "^4.0.1",
 		"remark-markdown": "^0.0.1",
+		"serve": "^14.2.3",
 		"sonner": "^1.7.4",
 		"zod": "catalog:data"
 	},
