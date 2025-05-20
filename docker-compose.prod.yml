@@ -1,0 +1,55 @@
+services:
+  management-server:
+    build:
+      context: .
+      dockerfile: ./apps/management-server/Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      - NODE_ENV=production
+      - CORS_ORIGIN=${CORS_ORIGIN}
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - db
+    networks:
+      - graphserve_network
+
+  studio-frontend:
+    build:
+      context: .
+      dockerfile: ./apps/studio-frontend/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    networks:
+      - graphserve_network
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - graphserve_network
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 1s
+      timeout: 1s
+      retries: 12
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  graphserve_network:
+    driver: bridge
